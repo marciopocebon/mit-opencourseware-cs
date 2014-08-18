@@ -45,13 +45,26 @@ def compute_deriv(poly):
     poly: tuple of numbers, length > 0
     returns: tuple of numbers
     """
-    # TO DO ... 
+    len_poly = len(poly)
 
-def compute_root(poly, x_0, epsilon):
+    if len_poly > 0 and len_poly > 1:
+        exponent = len_poly-1
+        return compute_deriv(poly[:-1]) + (exponent*poly[-1],)
+    else:
+        return ()
+
+
+# poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
+# print compute_deriv(poly)
+
+def compute_root(poly, x, epsilon, iterations):
     """
     Uses Newton's method to find and return a root of a polynomial function.
     Returns a tuple containing the root and the number of iterations required
     to get to the root.
+
+    Formula:
+        # Xn+1 = Xn - f(Xn)/f'(Xn)
 
     Example:
     >>> poly = (-13.39, 0.0, 17.5, 3.0, 1.0)    #x^4 + 3x^3 + 17.5x^2 - 13.39
@@ -67,5 +80,24 @@ def compute_root(poly, x_0, epsilon):
     epsilon: float > 0
     returns: tuple (float, int)
     """
-    # TO DO ... 
 
+    iterations+=1
+
+    len_poly = len(poly)
+    if len_poly > 1:
+        fx = evaluate_poly(poly, x)
+        if fx == 0:
+            return x, iterations
+        else:
+            if abs(fx) < epsilon:
+                return x, iterations
+            else:
+                fxx = evaluate_poly(compute_deriv(poly), x)
+                x = x - fx / fxx
+                return compute_root(poly, x, epsilon, iterations)
+
+poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
+x = 0.1
+epsilon = .0001
+iterations = 0
+print compute_root(poly, x, epsilon, iterations)
