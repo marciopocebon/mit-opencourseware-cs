@@ -20,15 +20,17 @@ def evaluate_poly(poly, x):
     len_poly = len(poly)
 
     if len_poly > 0:
-        power = len_poly-1
-        result = poly[-1]*x**power
-        if len_poly > 1: result += evaluate_poly(poly[:-1], x)
-        return float(result)
+        exponent = len_poly-1
+        # useful for debugging
+        # print poly[-1], '*', x, '**', exponent, '=', poly[-1]*x**exponent
+        return poly[-1]*x**exponent + evaluate_poly(poly[:-1], x)
+    else:
+        return 0.0
 
-poly = (0.0, 0.0, 5.0, 9.3, 7.0)
-x = -13
-poly_of_x = evaluate_poly(poly, x)
-print poly_of_x, type(poly_of_x)
+# poly = (0.0, 0.0, 5.0, 9.3, 7.0)
+# x = -13
+# poly_of_x = evaluate_poly(poly, x)
+# print poly_of_x
 
 def compute_deriv(poly):
     """
