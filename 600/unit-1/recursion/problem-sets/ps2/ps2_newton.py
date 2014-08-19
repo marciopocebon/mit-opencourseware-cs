@@ -96,8 +96,8 @@ def compute_root(poly, x, epsilon, iterations):
                 x = x - fx / fxx
                 return compute_root(poly, x, epsilon, iterations)
 
-poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
-x = 0.1
-epsilon = .0001
-iterations = 0
-print compute_root(poly, x, epsilon, iterations)
+# poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
+# x = 0.1
+# epsilon = .0001
+# iterations = 0
+# print compute_root(poly, x, epsilon, iterations)
