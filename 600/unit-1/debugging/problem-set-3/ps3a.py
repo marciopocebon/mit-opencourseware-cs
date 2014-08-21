@@ -77,6 +77,13 @@ def get_word_score(word, n):
     returns: int >= 0
     """
     # TO DO...
+
+    score = 0
+    bonus = 50 if len(word) == n else 0
+    for letter in word:
+        score += SCRABBLE_LETTER_VALUES[letter]
+
+    return (score * len(word)) + bonus
     
 #
 # Make sure you understand how this function works and what it does!

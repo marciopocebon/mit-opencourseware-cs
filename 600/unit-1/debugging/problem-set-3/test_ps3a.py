@@ -65,7 +65,7 @@ def test_get_word_score():
     """
     failure=False
     # dictionary of words and scores
-    words = {("", 7):0, ("it", 7):4, ("was", 7):18, ("scored", 7):54, ("waybill", 7):155, ("outgnaw", 7):127, ("outgnawn", 8):146}
+    words = {("", 7):0, ("it", 7):4, ("was", 7):18, ("scored", 7):54, ("waybill", 7):155, ("outgnaw", 7):127, ("outgnawn", 8):146, ("mario", 7):35}
     for (word, n) in words.keys():
         score = get_word_score(word, n)
         if score != words[(word, n)]:
