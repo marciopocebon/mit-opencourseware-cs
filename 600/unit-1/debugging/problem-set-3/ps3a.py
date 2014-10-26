@@ -269,6 +269,24 @@ def play_game(word_list):
     * If the user inputs anything else, ask them again.
     """
     # TO DO...
+    keep_playing = True
+    hand = None
+
+    while keep_playing:
+        user_input = raw_input("Choose: 'n' (new hand), 'r' (repeat last hand) or 'e' (exit)\n")
+
+        if user_input == "n":
+            hand = deal_hand(HAND_SIZE)
+            play_hand(hand, word_list)
+
+            while keep_playing:
+                user_input = raw_input("Choose: 'r' (repeat) or 'e' (exit) \n")
+                if user_input == "r":
+                    play_hand(hand, word_list)
+                elif user_input == "e":
+                    keep_playing = False
+                else:
+                    break;
 
 #
 # Build data structures used for entire session and play game
