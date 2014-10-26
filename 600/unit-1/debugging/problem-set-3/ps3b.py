@@ -10,13 +10,26 @@ from perm import *
 #
 def comp_choose_word(hand, word_list):
     """
-	Given a hand and a word_dict, find the word that gives the maximum value score, and return it.
+	Given a hand and a word_list, find the word that gives the maximum value score, and return it.
    	This word should be calculated by considering all possible permutations of lengths 1 to HAND_SIZE.
 
     hand: dictionary (string -> int)
     word_list: list (string)
     """
     # TO DO...
+    best_word = ""
+    best_score = -1
+
+    for word in word_list:
+        if is_valid_word(word, hand, None, True):
+            word_score = get_word_score(word, HAND_SIZE)
+
+            if word_score > best_score:
+                best_score = word_score
+                best_word = word
+                print "word: ", word
+                print "score: ", best_score
+    return best_word
 
 #
 # Problem #6B: Computer plays a hand
@@ -29,8 +42,8 @@ def comp_play_hand(hand, word_list):
 
      * The computer chooses a word using comp_choose_words(hand, word_dict).
 
-     * After every valid word: the score for that word is displayed, 
-       the remaining letters in the hand are displayed, and the computer 
+     * After every valid word: the score for that word is displayed,
+       the remaining letters in the hand are displayed, and the computer
        chooses another word.
 
      * The sum of the word scores is displayed when the hand finishes.
@@ -40,8 +53,8 @@ def comp_play_hand(hand, word_list):
      hand: dictionary (string -> int)
      word_list: list (string)
     """
-    # TO DO ...    
-    
+    # TO DO ...
+
 #
 # Problem #6C: Playing a game
 #
@@ -65,7 +78,7 @@ def play_game(word_list):
     word_list: list (string)
     """
     # TO DO...
-        
+
 #
 # Build data structures used for entire session and play game
 #
@@ -73,4 +86,4 @@ if __name__ == '__main__':
     word_list = load_words()
     play_game(word_list)
 
-    
+

@@ -166,7 +166,7 @@ def update_hand(hand, word):
 #
 # Problem #3: Test word validity
 #
-def is_valid_word(word, hand, word_list):
+def is_valid_word(word, hand, word_list, skip_word_list_validation = False):
     """
     Returns True if word is in the word_list and is entirely
     composed of letters in the hand. Otherwise, returns False.
@@ -179,7 +179,7 @@ def is_valid_word(word, hand, word_list):
     # TO DO...
     new_hand = hand.copy()
     word = word.lower()
-    in_word_list = word in word_list
+    in_word_list = skip_word_list_validation or word in word_list
     in_hand = True
     for letter in word:
         if letter in new_hand and new_hand[letter] > 0:
