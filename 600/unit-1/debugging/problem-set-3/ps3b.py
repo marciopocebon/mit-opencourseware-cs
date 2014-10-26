@@ -27,8 +27,8 @@ def comp_choose_word(hand, word_list):
             if word_score > best_score:
                 best_score = word_score
                 best_word = word
-                print "word: ", word
-                print "score: ", best_score
+                # print "word: ", word
+                # print "score: ", best_score
     return best_word
 
 #
@@ -54,6 +54,26 @@ def comp_play_hand(hand, word_list):
      word_list: list (string)
     """
     # TO DO ...
+    total_score = 0
+    keep_playing = True
+
+    while keep_playing:
+        display_hand(hand)
+        word = comp_choose_word(hand, word_list)
+
+        if word == "":
+            keep_playing = False
+            break;
+
+        word_score = get_word_score(word, HAND_SIZE)
+        print "word: ", word
+        print "word's score: ", word_score
+        total_score += word_score
+        hand = update_hand(hand, word)
+
+    print "total score: ", total_score
+
+comp_play_hand(deal_hand(HAND_SIZE), load_words())
 
 #
 # Problem #6C: Playing a game
