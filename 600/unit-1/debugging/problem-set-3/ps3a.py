@@ -277,17 +277,27 @@ def play_game(word_list):
 
         if user_input == "n":
             hand = deal_hand(HAND_SIZE)
-            play_hand(hand, word_list)
+        elif user_input == "r" and hand == None:
+            continue;
+        elif user_input == "e":
+            keep_playing = False
+            break;
+        else:
+            continue;
 
-            while keep_playing:
-                user_input = raw_input("Choose: 'r' (repeat) or 'e' (exit) \n")
-                if user_input == "r":
-                    play_hand(hand, word_list)
-                elif user_input == "e":
-                    keep_playing = False
-                else:
-                    break;
+        play_hand(hand, word_list)
 
+        while keep_playing:
+            user_input = raw_input("Choose: 'r' (repeat) or 'e' (exit) \n")
+            if user_input == "r":
+                play_hand(hand, word_list)
+            elif user_input == "e":
+                keep_playing = False
+            else:
+                break;
+
+def user_play_game(word_list):
+    play_game(word_list)
 #
 # Build data structures used for entire session and play game
 #

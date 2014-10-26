@@ -73,8 +73,6 @@ def comp_play_hand(hand, word_list):
 
     print "total score: ", total_score
 
-comp_play_hand(deal_hand(HAND_SIZE), load_words())
-
 #
 # Problem #6C: Playing a game
 #
@@ -98,6 +96,19 @@ def play_game(word_list):
     word_list: list (string)
     """
     # TO DO...
+    keep_playing = True
+    user_input = ""
+
+    while keep_playing:
+        user_play_game(word_list)
+
+        user_input = raw_input("Choose: 'u' (play again), 'c' (computer plays)\n")
+
+        if user_input == "u":
+            continue;
+        else:
+            comp_play_hand(deal_hand(HAND_SIZE), word_list)
+            keep_playing = False
 
 #
 # Build data structures used for entire session and play game
