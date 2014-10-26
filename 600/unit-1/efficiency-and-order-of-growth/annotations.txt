@@ -1,0 +1,54 @@
+efficiency and order of growth
+
+"efficiency is about algorithms"
+
+- problem reduction
+  "reduce the problem to a proviously solved problem"
+  - space & time
+    - a program that runs fast, but consumes a lot of memory
+    - a program that runs slow, but comsumes just a bit of memory
+- computational complexity
+  "how long does a program takes to run in a computer?"
+  - It depends on:
+    - speed of machine
+    - cleverness of python implementation
+    - depends upon input (MOST IMPORTANT!)
+    - the number of basic steps
+      - time : input_size -> number_steps
+      - step is an operation that takes constant time
+  - how long an algorithm would take to run?
+    - best case
+      "the minimum running time over all posible inputs"
+    - worst case (the right one to worry about)
+      "the maximum running time over all possible inputs of the given size (size of the set, for example)"
+  - growth
+    - what is ignored when analysing an algorithm
+      - 2 + 3 * n + 1
+        - addition constants: 2 and 1
+        - multiplicative constants: 3
+        - only n is taken in count when analysing order or growth of algorithms
+    - Big Oh: asynptotic growth model
+      "how the complexity grows as you reach the limit of the size of the input"
+      - F(x) E O(xˆ2)
+        "function F grows no faster than the quadratic polynomial xˆ2"
+      - orders or growth
+        - O(1)
+          "constant growth"
+        - O(log n)
+          "logarithmic growth"
+        - O(n)
+          "linear growth"
+        - O(n log n)
+          "logarithmic linear growth"
+        - O(nˆc)
+          "polynomial growth"
+        - O(cˆn)
+          "exponential growth"
+        - analysing algorithms
+          - factorial -> O(n)
+          - nested loops -> O(nˆ2)
+          - O(n) -> where n is log10 (x)
+          - O(log (len(L))
+            "binary search"
+          - O(len(L))
+            "linear search"
