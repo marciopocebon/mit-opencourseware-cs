@@ -1,0 +1,20 @@
+memory and search methods
+
+- indirection
+  "the ability to access something using a name or reference instead of the value itself"
+  - binary search
+    - 1. sort L -> O(?)
+    - 2. use binary search -> O(log len(L)) / O(log n)
+    - O(?) + O(log len(L)) < O(L)
+- amortized complexity
+  - analysis
+    - if we sort the list L a number of times, we don't really care about sorting it, since it will be done only once
+- If we plan on k searches
+  - O(any_sort(L)) + k * log(len(L)) < k * len(L)
+  - the answer depends on:
+    - how big is k?
+    - what's the complexity of O(any_sort(L))?
+- sorting
+  - selection sort :: O(nˆ2)
+    "stablishing and maintaining invariant"
+  - merge sort :: O(n)
