@@ -1,11 +1,16 @@
 1
-1.1: true
+1.1: true (false, I did not pay attention to the question =/)
 1.2: true
 1.3: false
-1.4: true
-1.5: true
+1.4: true (false, consider searching for an element that happens to the first element of the list)
+1.5: true (false, I did not pay attention to the question =/)
 
-2: 0.1, 0.1, 1.1, 1.1, 1
+2:
+0.1,
+0.1, (0.2, =/)
+1.1, (1.3, =/)
+1.1, (2.4, =/)
+1
 
 3: skipped
 4: skipped
@@ -13,20 +18,20 @@
 6: skipped
 7
 7.1: skipped
-7.2: O(n log n)
+7.2: O(n log n) [wrong choise, the correct is O(n), oh boy =/]
 
 8
 
 Big O notation
 b) upper bound
-c) expected runtime
+c) expected runtime (exceeded)
 
 Newton's method
 d) approximation
-f) exponential
+f) exponential (exceeded)
 
 recursion
-c) lower bound
+c) lower bound ( a] induction)
 
 None
 a) induction
