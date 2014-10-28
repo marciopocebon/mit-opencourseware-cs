@@ -1,0 +1,14 @@
+Contents
+- how hash can be used to achieve near constant time lookups
+- concept of classes
+- exceptions
+
+Check yourself
+- what does hashind do?
+- what is a bucket?
+- what are try blocks for?
+- what does polymorphic mean?
+- what is a module?
+- what is an object?
+
+Lecture 10: Hashing and Classes
