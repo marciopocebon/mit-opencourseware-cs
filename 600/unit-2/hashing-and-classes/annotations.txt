@@ -5,10 +5,14 @@ Contents
 
 Check yourself
 - what does hashind do?
+  converts the element to be hashed into an int that lies within a range
 - what is a bucket?
-- what are try blocks for?
+  a list of elements that have the same hash value
 - what does polymorphic mean?
+  works with a variety of different tyoes
 - what is a module?
+  a group of related functions
 - what is an object?
+  a collection of data and functions that operate on that data
 
 Lecture 10: Hashing and Classes

@@ -1,3 +1,6 @@
+import random
+import math
+
 class Hash():
 
   def __init__(self, size):
@@ -22,7 +25,8 @@ class Hash():
 
   def auto_populate_buckets(self, limit):
     for x in xrange(limit):
-      self.insert(x)
+      value = int(random.random()*100)
+      self.insert(value)
 
   def find_element_in_constant_time(self, element):
     hashed = self.hash_interger(element)
@@ -32,7 +36,7 @@ class Hash():
     return str(self.buckets)
 
 
-size = 30
+size = 200
 h = Hash(size)
 h.setup_buckets()
 print 'initial buckets: \n', h
@@ -42,5 +46,5 @@ print 'populated buckets with %d integers: \n' % intergers,
 for x in range(len(h.buckets)):
   print h.buckets[x]
 
-print 'finding bucket for the integer 57 in constant time: ',
+print 'finding bucket for integer 57 in constant time: ',
 print h.find_element_in_constant_time(57)
