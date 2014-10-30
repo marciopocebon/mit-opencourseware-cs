@@ -1,6 +1,9 @@
 Your algorithms should be plain English explanations for the steps your program will take to solve these problems.
 
 Write out your algorithm for Problem 2 here:
-
+1. apply shift from 0 to 27 and use it to decode the text
+2. count the number of valid words for each shift
+3. stores the shift with the maximum number of words
+4. return the shift
 
 Write out your algorithm for Problem 4 here:

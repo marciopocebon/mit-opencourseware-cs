@@ -6,12 +6,24 @@ import string
 import random
 
 WORDLIST_FILENAME = "words.txt"
-ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']
 
 ALPHABET_LEN = len(ALPHABET)
 # -----------------------------------
 # Helper code
 # (you don't need to understand this helper code)
+def get_number_of_words(wordlist, text):
+    number_valid_words = 0
+    words = text.split(' ')
+
+    for word in words:
+        if is_word(wordlist, word):
+            number_valid_words += 1
+        else:
+            return -1
+
+    return number_valid_words if number_valid_words == len(words) else -1
+
 def load_words():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
@@ -221,7 +233,6 @@ def apply_coder(text, coder):
     'Hello, world!'
     """
     ### TODO.
-    print 'applying coder to text "%s"' % text
     encoded_text = ""
 
     for letter in text:
@@ -278,6 +289,27 @@ def find_best_shift(wordlist, text):
     'Hello, world!'
     """
     ### TODO
+    max_number_words = -1
+    shift = None
+
+    for index in range(ALPHABET_LEN):
+        decoder = build_decoder(index)
+        decrypted_text = apply_coder(text, decoder)
+        number_words = get_number_of_words(wordlist, decrypted_text)
+
+        if number_words == -1:
+            continue
+        elif number_words > max_number_words:
+            max_number_words = number_words
+            shift = index
+
+        print 'decrypted_text: ', decrypted_text,
+        print 'shift: ', index
+
+    return shift
+
+words = load_words()
+print find_best_shift(words, 'Pmttw,hdwztl!')
 
 #
 # Problem 3: Multi-level encryption.
