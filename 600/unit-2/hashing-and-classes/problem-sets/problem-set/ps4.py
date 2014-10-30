@@ -6,7 +6,9 @@ import string
 import random
 
 WORDLIST_FILENAME = "words.txt"
+ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
+ALPHABET_LEN = len(ALPHABET)
 # -----------------------------------
 # Helper code
 # (you don't need to understand this helper code)
@@ -46,6 +48,9 @@ def is_word(wordlist, word):
     word = word.lower()
     word = word.strip(" !@#$%^&*()-_+={}[]|\:;'<>?,./\"")
     return word in wordlist
+
+def is_letter(letter):
+    return letter in ALPHABET
 
 def random_word(wordlist):
     """
@@ -121,13 +126,15 @@ def build_coder(shift):
     (The order of the key-value pairs may be different.)
     """
 
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    coder = {}
-    alphabet_len = len(alphabet)
+    if shift < -27 or shift > 27:
+        message = 'shift %d must be an integer between -27 < int < 27' % shift
+        raise IndexError(message)
 
-    for index in range(alphabet_len):
-        shifted_index = (index+shift) % alphabet_len
-        coder[alphabet[index]] = alphabet[shifted_index]
+    coder = {}
+
+    for index in range(ALPHABET_LEN):
+        shifted_index = (index+shift) % ALPHABET_LEN
+        coder[ALPHABET[index]] = ALPHABET[shifted_index]
 
     return coder
 
@@ -159,6 +166,11 @@ def build_encoder(shift):
     HINT : Use build_coder.
     """
     ### TODO.
+    if shift <= -1 or shift > 27:
+        message = 'shift %d must be an integer between 0 < int < 27' % shift
+        raise IndexError(message)
+
+    return build_coder(shift)
 
 def build_decoder(shift):
     """
@@ -188,8 +200,11 @@ def build_decoder(shift):
 
     HINT : Use build_coder.
     """
-    ### TODO.
+    if shift <= -1 or shift > 27:
+        message = 'shift %d must be an integer between 0 <= int < 27' % shift
+        raise IndexError(message)
 
+    return build_coder(-shift)
 
 def apply_coder(text, coder):
     """
@@ -206,7 +221,20 @@ def apply_coder(text, coder):
     'Hello, world!'
     """
     ### TODO.
+    print 'applying coder to text "%s"' % text
+    encoded_text = ""
 
+    for letter in text:
+        # ignores no-letter characters
+        letter = letter.lower()
+        if is_letter(letter):
+            encoded_letter = coder[letter]
+        else:
+            encoded_letter = letter
+
+        encoded_text += encoded_letter
+
+    return encoded_text
 
 def apply_shift(text, shift):
     """
@@ -226,6 +254,9 @@ def apply_shift(text, shift):
     'Apq hq hiham a.'
     """
     ### TODO.
+
+    encoder = build_coder(shift)
+    return apply_coder(text, encoder)
 
 #
 # Problem 2: Codebreaking.
