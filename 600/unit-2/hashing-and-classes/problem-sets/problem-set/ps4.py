@@ -331,11 +331,20 @@ def apply_shifts(text, shifts):
     'JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
     """
     ### TODO.
+    if len(shifts) == 0:
+        return text
+
+    shift = shifts.pop()
+    shifted_text = apply_shift(text[shift[0]:], shift[1])
+    print 'shifted_text with shift:', shift[1], shifted_text
+    text = text[:shift[0]] + shifted_text
+    print 'text + shift:', text
+
+    return apply_shifts(text, shifts)
 
 #
 # Problem 4: Multi-level decryption.
 #
-
 
 def find_best_shifts(wordlist, text):
     """
