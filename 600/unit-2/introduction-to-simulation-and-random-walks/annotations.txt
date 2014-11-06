@@ -1,0 +1,28 @@
+introduction to simularion and random walks
+
+- check yourself
+  - what is a generator?
+    "A function that remembers the point in the function body where it last returned a value and the values of all local variables."
+  - what is the difference between yield and return?
+    "When yield is used, the state of the function is not lost."
+  - what is a model?
+    "A model is a theoretical construct that will provide useful information about the possible behaviors of the system being modeled."
+- a generator
+  - is a function that remembers the point in function body where last returned
+  - examples
+    - yield
+- analytic methods
+  "predict behaviour, given initial conditions and parameters"
+- simulation methods
+  "gives me a sense of what might happen to a system under some conditions"
+  - systems not mathematical trackable
+  - successively refining series of simulations
+  - easier to abstract useful intermediate results
+  - computes
+  - how does it works
+    - build a model
+      - gives useful information about bahaviour of the system
+      - approximation to reality
+      - simulation models are descriptive, not prescriptive
+    - brownian motion
+      "an example of a random walk"
