@@ -162,8 +162,19 @@ class OrTrigger(Trigger):
 # Phrase Trigger
 # Question 9
 
-# TODO: PhraseTrigger
+class PhraseTrigger(Trigger):
+    def __init__(self, phrase):
+        self.phrase = phrase
 
+    def is_phrase_in(self, text):
+        return self.phrase in text
+
+    def evaluate(self, story):
+        title_trigger = TitleTrigger(self.phrase)
+        subject_trigger = SubjectTrigger(self.phrase)
+        summary_trigger = SummaryTrigger(self.phrase)
+
+        return self.is_phrase_in(story.get_title()) or self.is_phrase_in(story.get_summary()) or self.is_phrase_in(story.get_subject())
 
 #======================
 # Part 3
