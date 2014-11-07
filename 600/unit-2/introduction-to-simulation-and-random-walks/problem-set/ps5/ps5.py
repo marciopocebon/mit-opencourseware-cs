@@ -202,16 +202,16 @@ def filter_stories(stories, triggerlist):
 # Part 4
 # User-Specified Triggers
 #======================
+TRIGGERS = {
+    'TITLE': TitleTrigger,
+    'SUBJECT': SubjectTrigger,
+    'PHRASE': PhraseTrigger,
+    'AND': AndTrigger,
+    'OR': OrTrigger,
+    'NOT': NotTrigger
+}
 
-def readTriggerConfig(filename):
-    """
-    Returns a list of trigger objects
-    that correspond to the rules set
-    in the file filename
-    """
-    # Here's some code that we give you
-    # to read in the file and eliminate
-    # blank lines and comments
+def getValidLinesFromFile(filename):
     triggerfile = open(filename, "r")
     all = [ line.rstrip() for line in triggerfile.readlines() ]
     lines = []
@@ -219,56 +219,78 @@ def readTriggerConfig(filename):
         if len(line) == 0 or line[0] == '#':
             continue
         lines.append(line)
+    return lines
 
-    # TODO: Problem 11
-    # 'lines' has a list of lines you need to parse
-    # Build a set of triggers from it and
-    # return the appropriate ones
+def get_trigger(line):
+    for name in TRIGGERS:
+        if name in line:
+            return TRIGGERS[name]
 
-import thread
+def build_triggers(lines):
+    triggers = []
+    for line in lines:
+        trigger = get_trigger(line)
+        triggers.append(trigger)
 
-def main_thread(p):
-    # A sample trigger list - you'll replace
-    # this with something more configurable in Problem 11
-    t1 = SubjectTrigger("Obama")
-    t2 = SummaryTrigger("MIT")
-    t3 = PhraseTrigger("Supreme Court")
-    t4 = OrTrigger(t2, t3)
-    triggerlist = [t1, t4]
+    return triggers
 
-    # TODO: Problem 11
-    # After implementing readTriggerConfig, uncomment this line
-    #triggerlist = readTriggerConfig("triggers.txt")
+def readTriggerConfig(filename):
+    """
+    Returns a list of trigger objects
+    that correspond to the rules set
+    in the file filename
+    """
+    lines = getValidLinesFromFile(filename)
+    lines = build_triggers(lines)
 
-    guidShown = []
+    print lines
 
-    while True:
-        print "Polling..."
+print readTriggerConfig('triggers.txt')
 
-        # Get stories from Google's Top Stories RSS news feed
-        stories = process("http://news.google.com/?output=rss")
-        # Get stories from Yahoo's Top Stories RSS news feed
-        stories.extend(process("http://rss.news.yahoo.com/rss/topstories"))
+# import thread
 
-        # Only select stories we're interested in
-        stories = filter_stories(stories, triggerlist)
+# def main_thread(p):
+#     # A sample trigger list - you'll replace
+#     # this with something more configurable in Problem 11
+#     t1 = SubjectTrigger("Obama")
+#     t2 = SummaryTrigger("MIT")
+#     t3 = PhraseTrigger("Supreme Court")
+#     t4 = OrTrigger(t2, t3)
+#     triggerlist = [t1, t4]
 
-        # Don't print a story if we have already printed it before
-        newstories = []
-        for story in stories:
-            if story.get_guid() not in guidShown:
-                newstories.append(story)
+#     # TODO: Problem 11
+#     # After implementing readTriggerConfig, uncomment this line
+#     #triggerlist = readTriggerConfig("triggers.txt")
 
-        for story in newstories:
-            guidShown.append(story.get_guid())
-            p.newWindow(story)
+#     guidShown = []
 
-        print "Sleeping..."
-        time.sleep(SLEEPTIME)
+#     while True:
+#         print "Polling..."
 
-SLEEPTIME = 60 #seconds -- how often we poll
-if __name__ == '__main__':
-    p = Popup()
-    thread.start_new_thread(main_thread, (p,))
-    p.start()
+#         # Get stories from Google's Top Stories RSS news feed
+#         stories = process("http://news.google.com/?output=rss")
+#         # Get stories from Yahoo's Top Stories RSS news feed
+#         stories.extend(process("http://rss.news.yahoo.com/rss/topstories"))
+
+#         # Only select stories we're interested in
+#         stories = filter_stories(stories, triggerlist)
+
+#         # Don't print a story if we have already printed it before
+#         newstories = []
+#         for story in stories:
+#             if story.get_guid() not in guidShown:
+#                 newstories.append(story)
+
+#         for story in newstories:
+#             guidShown.append(story.get_guid())
+#             p.newWindow(story)
+
+#         print "Sleeping..."
+#         time.sleep(SLEEPTIME)
+
+# SLEEPTIME = 60 #seconds -- how often we poll
+# if __name__ == '__main__':
+#     p = Popup()
+#     thread.start_new_thread(main_thread, (p,))
+#     p.start()
 
