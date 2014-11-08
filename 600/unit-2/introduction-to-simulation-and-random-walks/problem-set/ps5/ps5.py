@@ -1,3 +1,5 @@
+DEBUG = False
+
 # 6.00 Problem Set 5
 # RSS Feed Filter
 
@@ -5,6 +7,7 @@ import feedparser
 import string
 import re
 import time
+import copy
 from project_util import translate_html
 from news_gui import Popup
 
@@ -90,11 +93,13 @@ class WordUtils():
 
     @staticmethod
     def remove_punctuation(text):
-        # print 'iniail ', text
+        if DEBUG:
+            print 'iniail ', text
         for punctuation in string.punctuation:
             text = text.replace(punctuation, ' ')
 
-        # print 'final ', text
+        if DEBUG:
+            print 'final ', text
 
         return text
 
@@ -105,6 +110,9 @@ class WordUtils():
 class WordTrigger(Trigger):
     def __init__(self, word):
         self.word = word;
+
+    def __str__(self):
+        return self.word
 
     def is_word_in(self, text):
         text = WordUtils.normalize_text(text)
@@ -126,7 +134,7 @@ class SubjectTrigger(WordTrigger):
         subject = story.get_subject()
 
         return self.is_word_in(subject)
-# TODO: SummaryTrigger
+
 class SummaryTrigger(WordTrigger):
     def evaluate(self, story):
         summary = story.get_summary()
@@ -140,6 +148,9 @@ class NotTrigger(Trigger):
     def __init__(self, trigger):
         self.trigger = trigger
 
+    def __str__(self):
+        return "not"
+
     def evaluate(self, news_item):
         return not self.trigger.evaluate(news_item)
 
@@ -148,6 +159,9 @@ class AndTrigger(Trigger):
         self.trigger_a = trigger_a
         self.trigger_b = trigger_b
 
+    def __str__(self):
+        return "and"
+
     def evaluate(self, news_item):
         return self.trigger_a.evaluate(news_item) and self.trigger_b.evaluate(news_item)
 
@@ -155,6 +169,9 @@ class OrTrigger(Trigger):
     def __init__(self, trigger_a, trigger_b):
         self.trigger_a = trigger_a
         self.trigger_b = trigger_b
+
+    def __str__(self):
+        return "or"
 
     def evaluate(self, news_item):
         return self.trigger_a.evaluate(news_item) or self.trigger_b.evaluate(news_item)
@@ -165,6 +182,9 @@ class OrTrigger(Trigger):
 class PhraseTrigger(Trigger):
     def __init__(self, phrase):
         self.phrase = phrase
+
+    def __str__(self):
+        return self.phrase
 
     def is_phrase_in(self, text):
         return self.phrase in text
@@ -207,8 +227,7 @@ TRIGGERS = {
     'SUBJECT': SubjectTrigger,
     'PHRASE': PhraseTrigger,
     'AND': AndTrigger,
-    'OR': OrTrigger,
-    'NOT': NotTrigger
+    'ADD': None
 }
 
 def getValidLinesFromFile(filename):
@@ -221,18 +240,150 @@ def getValidLinesFromFile(filename):
         lines.append(line)
     return lines
 
-def get_trigger(line):
+def get_word_from_line(line):
+    return line.split(' ')[-1]
+
+def get_phrase_from_line(line):
+    PHRASE = "PHRASE"
+    start_index = line.index(PHRASE)+len(PHRASE)+1
+
+    return line[start_index:]
+
+def get_trigger_class(line):
     for name in TRIGGERS:
         if name in line:
             return TRIGGERS[name]
 
+def get_trigger_name(line):
+    return line.split(' ')[0]
+
+def is_word_trigger(trigger_class):
+    response = False
+
+    if trigger_class:
+        response = issubclass(trigger_class, WordTrigger)
+        if DEBUG:
+            print "trigger_class %s is_word_trigger: " % trigger_class, response
+
+    return response
+
+def is_phrase_trigger(trigger_class):
+    response = False
+
+    if trigger_class:
+        response = issubclass(trigger_class, PhraseTrigger)
+        if DEBUG:
+            print "trigger_class %s is_phrase_trigger: " % trigger_class, response
+
+    return response
+
+def is_and_or_trigger(trigger_class):
+    trigger_class_copy = copy.deepcopy(trigger_class)
+    response = False
+
+    if type(trigger_class_copy) == type({}) and type(trigger_class_copy["instance"]) == type({}):
+        trigger_class_copy = trigger_class_copy["instance"]["trigger"]
+
+    response = trigger_class_copy == AndTrigger or trigger_class_copy == OrTrigger
+    
+    if DEBUG or True:
+        print "trigger_class %s is_and_or_trigger: " % trigger_class_copy, response
+
+    return response
+
+def is_add_trigger(trigger):
+    pass
+
+def build_add_set_trigger(triggers, add_trigger):
+    pass
+
+def build_word_trigger(trigger_class, line):
+    word = get_word_from_line(line)
+    trigger = trigger_class(word)
+
+    return trigger
+
+def build_phrase_trigger(trigger_class, line):
+    phrase = get_phrase_from_line(line)
+    trigger = trigger_class(phrase)
+
+    return trigger
+
+def build_logical_trigger(trigger_class, line):
+    trigger_name = line.split(' ')[0]
+    triggers_name = line.split(' ')[2:]
+    trigger = {
+        "trigger": trigger_class,
+        "triggers_name": triggers_name
+    }
+
+    return trigger
+
+def build_trigger(line):
+    trigger_class = get_trigger_class(line)
+    trigger = {
+        "name": get_trigger_name(line),
+        "line": line,
+        "instance": None
+    }
+    
+    if is_word_trigger(trigger_class):
+        trigger["instance"] = build_word_trigger(trigger_class, line)
+    elif is_phrase_trigger(trigger_class):
+        trigger["instance"] = build_phrase_trigger(trigger_class, line)
+    elif is_and_or_trigger(trigger_class):
+        trigger["instance"] = build_logical_trigger(trigger_class, line)
+    elif is_add_trigger(trigger_class):
+        # TODO
+        pass
+    else:
+        if DEBUG:
+            print "No trigger found for line: ", line
+
+    return trigger
+
 def build_triggers(lines):
     triggers = []
     for line in lines:
-        trigger = get_trigger(line)
-        triggers.append(trigger)
+        trigger = build_trigger(line)
+        
+        if trigger["instance"]:
+            triggers.append(trigger)
 
     return triggers
+
+def build_composite_trigger(triggers, logical_trigger):
+    composite_trigger = {
+        "name": logical_trigger["name"],
+        "instance": None,
+        "line": logical_trigger["line"]
+    }
+    trigger_a = None
+    trigger_b = None
+
+    for trigger in triggers:
+        if trigger["name"] == logical_trigger["instance"]["triggers_name"][0]:
+            trigger_a = trigger["instance"]
+        elif trigger["name"] == logical_trigger["instance"]["triggers_name"][1]:
+            trigger_b = trigger["instance"]
+            break
+
+    composite_trigger["instance"] = logical_trigger["instance"]["trigger"](trigger_a, trigger_b)
+
+    return composite_trigger
+
+def build_trigger_set(triggers):
+    trigger_set = []
+
+    for trigger in triggers:
+        if DEBUG:
+            print trigger
+
+        if is_and_or_trigger(trigger):
+            composite_trigger = build_composite_trigger(triggers, trigger)
+            trigger_set.append(composite_trigger)
+
+    return trigger_set
 
 def readTriggerConfig(filename):
     """
@@ -241,11 +392,15 @@ def readTriggerConfig(filename):
     in the file filename
     """
     lines = getValidLinesFromFile(filename)
-    lines = build_triggers(lines)
+    triggers = build_triggers(lines)
+    trigger_set = build_trigger_set(triggers)
 
-    print lines
+    return trigger_set
 
-print readTriggerConfig('triggers.txt')
+triggers = readTriggerConfig('triggers.txt')
+
+for trigger in triggers:
+    print trigger
 
 # import thread
 
