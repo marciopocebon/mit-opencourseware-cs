@@ -48,8 +48,6 @@ def process(url):
 #======================
 
 # Problem 1
-
-# TODO: NewsStory
 class NewsStory:
     def __init__(self, guid, title, subject, summary, link):
         self.guid = guid
@@ -86,6 +84,9 @@ class Trigger(object):
         """
         raise NotImplementedError
 
+    def __str__(self):
+        return self.__class__.__name__
+
 # Whole Word Triggers
 # Problems 2-5
 
@@ -110,9 +111,6 @@ class WordUtils():
 class WordTrigger(Trigger):
     def __init__(self, word):
         self.word = word;
-
-    def __str__(self):
-        return self.word
 
     def is_word_in(self, text):
         text = WordUtils.normalize_text(text)
@@ -148,9 +146,6 @@ class NotTrigger(Trigger):
     def __init__(self, trigger):
         self.trigger = trigger
 
-    def __str__(self):
-        return "not"
-
     def evaluate(self, news_item):
         return not self.trigger.evaluate(news_item)
 
@@ -159,9 +154,6 @@ class AndTrigger(Trigger):
         self.trigger_a = trigger_a
         self.trigger_b = trigger_b
 
-    def __str__(self):
-        return "and"
-
     def evaluate(self, news_item):
         return self.trigger_a.evaluate(news_item) and self.trigger_b.evaluate(news_item)
 
@@ -169,9 +161,6 @@ class OrTrigger(Trigger):
     def __init__(self, trigger_a, trigger_b):
         self.trigger_a = trigger_a
         self.trigger_b = trigger_b
-
-    def __str__(self):
-        return "or"
 
     def evaluate(self, news_item):
         return self.trigger_a.evaluate(news_item) or self.trigger_b.evaluate(news_item)
@@ -182,9 +171,6 @@ class OrTrigger(Trigger):
 class PhraseTrigger(Trigger):
     def __init__(self, phrase):
         self.phrase = phrase
-
-    def __str__(self):
-        return self.phrase
 
     def is_phrase_in(self, text):
         return self.phrase in text
@@ -227,7 +213,7 @@ TRIGGERS = {
     'SUBJECT': SubjectTrigger,
     'PHRASE': PhraseTrigger,
     'AND': AndTrigger,
-    'ADD': None
+    'ADD': 'ADD'
 }
 
 def getValidLinesFromFile(filename):
@@ -260,7 +246,7 @@ def get_trigger_name(line):
 def is_word_trigger(trigger_class):
     response = False
 
-    if trigger_class:
+    if trigger_class and type(trigger_class) != type(""):
         response = issubclass(trigger_class, WordTrigger)
         if DEBUG:
             print "trigger_class %s is_word_trigger: " % trigger_class, response
@@ -270,7 +256,7 @@ def is_word_trigger(trigger_class):
 def is_phrase_trigger(trigger_class):
     response = False
 
-    if trigger_class:
+    if trigger_class and type(trigger_class) != type(""):
         response = issubclass(trigger_class, PhraseTrigger)
         if DEBUG:
             print "trigger_class %s is_phrase_trigger: " % trigger_class, response
@@ -286,16 +272,13 @@ def is_and_or_trigger(trigger_class):
 
     response = trigger_class_copy == AndTrigger or trigger_class_copy == OrTrigger
     
-    if DEBUG or True:
+    if DEBUG:
         print "trigger_class %s is_and_or_trigger: " % trigger_class_copy, response
 
     return response
 
 def is_add_trigger(trigger):
-    pass
-
-def build_add_set_trigger(triggers, add_trigger):
-    pass
+    return trigger and (trigger == TRIGGERS["ADD"] or trigger["name"] == TRIGGERS["ADD"])
 
 def build_word_trigger(trigger_class, line):
     word = get_word_from_line(line)
@@ -319,6 +302,9 @@ def build_logical_trigger(trigger_class, line):
 
     return trigger
 
+def build_add_trigger(trigger_class, line):
+    return line.split(' ')[1:]
+
 def build_trigger(line):
     trigger_class = get_trigger_class(line)
     trigger = {
@@ -334,8 +320,7 @@ def build_trigger(line):
     elif is_and_or_trigger(trigger_class):
         trigger["instance"] = build_logical_trigger(trigger_class, line)
     elif is_add_trigger(trigger_class):
-        # TODO
-        pass
+        trigger["instance"] = build_add_trigger(trigger_class, line)
     else:
         if DEBUG:
             print "No trigger found for line: ", line
@@ -346,6 +331,9 @@ def build_triggers(lines):
     triggers = []
     for line in lines:
         trigger = build_trigger(line)
+
+        if is_and_or_trigger(trigger):
+            trigger = build_composite_trigger(triggers, trigger)
         
         if trigger["instance"]:
             triggers.append(trigger)
@@ -372,6 +360,11 @@ def build_composite_trigger(triggers, logical_trigger):
 
     return composite_trigger
 
+def get_trigger_by_name(triggers, name):
+    for trigger in triggers:
+        if trigger["name"] == name:
+            return trigger["instance"]
+
 def build_trigger_set(triggers):
     trigger_set = []
 
@@ -379,9 +372,10 @@ def build_trigger_set(triggers):
         if DEBUG:
             print trigger
 
-        if is_and_or_trigger(trigger):
-            composite_trigger = build_composite_trigger(triggers, trigger)
-            trigger_set.append(composite_trigger)
+        if is_add_trigger(trigger):
+            for add_trigger in trigger["instance"]:
+                add_trigger = get_trigger_by_name(triggers, add_trigger)
+                trigger_set.append(add_trigger)
 
     return trigger_set
 
@@ -397,55 +391,50 @@ def readTriggerConfig(filename):
 
     return trigger_set
 
-triggers = readTriggerConfig('triggers.txt')
+import thread
 
-for trigger in triggers:
-    print trigger
+def main_thread(p):
+    # A sample trigger list - you'll replace
+    # this with something more configurable in Problem 11
+    # t1 = SubjectTrigger("Obama")
+    # t2 = SummaryTrigger("MIT")
+    # t3 = PhraseTrigger("Supreme Court")
+    # t4 = OrTrigger(t2, t3)
+    # triggerlist = [t1, t4]
+    
+    triggerlist = readTriggerConfig("triggers.txt")
 
-# import thread
+    guidShown = []
+    run = 3
 
-# def main_thread(p):
-#     # A sample trigger list - you'll replace
-#     # this with something more configurable in Problem 11
-#     t1 = SubjectTrigger("Obama")
-#     t2 = SummaryTrigger("MIT")
-#     t3 = PhraseTrigger("Supreme Court")
-#     t4 = OrTrigger(t2, t3)
-#     triggerlist = [t1, t4]
+    while run:
+        print "Polling..."
 
-#     # TODO: Problem 11
-#     # After implementing readTriggerConfig, uncomment this line
-#     #triggerlist = readTriggerConfig("triggers.txt")
+        # Get stories from Google's Top Stories RSS news feed
+        stories = process("http://news.google.com/?output=rss")
+        # Get stories from Yahoo's Top Stories RSS news feed
+        stories.extend(process("http://rss.news.yahoo.com/rss/topstories"))
 
-#     guidShown = []
+        # Only select stories we're interested in
+        stories = filter_stories(stories, triggerlist)
 
-#     while True:
-#         print "Polling..."
+        # Don't print a story if we have already printed it before
+        newstories = []
+        for story in stories:
+            if story.get_guid() not in guidShown:
+                newstories.append(story)
 
-#         # Get stories from Google's Top Stories RSS news feed
-#         stories = process("http://news.google.com/?output=rss")
-#         # Get stories from Yahoo's Top Stories RSS news feed
-#         stories.extend(process("http://rss.news.yahoo.com/rss/topstories"))
+        for story in newstories:
+            guidShown.append(story.get_guid())
+            p.newWindow(story)
 
-#         # Only select stories we're interested in
-#         stories = filter_stories(stories, triggerlist)
+        print "Sleeping..."
+        run -= 1
+        time.sleep(SLEEPTIME)
 
-#         # Don't print a story if we have already printed it before
-#         newstories = []
-#         for story in stories:
-#             if story.get_guid() not in guidShown:
-#                 newstories.append(story)
-
-#         for story in newstories:
-#             guidShown.append(story.get_guid())
-#             p.newWindow(story)
-
-#         print "Sleeping..."
-#         time.sleep(SLEEPTIME)
-
-# SLEEPTIME = 60 #seconds -- how often we poll
-# if __name__ == '__main__':
-#     p = Popup()
-#     thread.start_new_thread(main_thread, (p,))
-#     p.start()
+SLEEPTIME = 10 #seconds -- how often we poll
+if __name__ == '__main__':
+    p = Popup()
+    thread.start_new_thread(main_thread, (p,))
+    p.start()
 
