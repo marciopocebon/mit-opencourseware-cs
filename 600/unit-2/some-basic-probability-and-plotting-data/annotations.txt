@@ -1,0 +1,25 @@
+some basic probability and plotting data
+
+- probability
+  - the world is non-determinism because we can't actually predict it
+  - causal non-determinism
+    "not every event is caused by previousely events"
+  - predictive non-determinism
+    "our inability to make accurrate management about the physic world makes it impossible to make precise predictions about the future"
+  - stochastic processes
+    "next state depends on previous states & some random element"
+  - what fraction of the possible results have the property we are testing for?
+  - the probability of some event occurring has to be between 0 and 1
+    - 0
+      "cannot happen"
+    - 1
+      "guarantee to happen"
+- plotting
+  - pylab
+  - matlab
+  - matplatlib.sourgeforge.net
+- check yourself
+  - What is a stochastic process?
+    "One whose next state depends upon both previous states and some random element."
+  - What makes two events independent?
+    "Two events are independent if the outcome of one has no influence on the outcome of the other."
