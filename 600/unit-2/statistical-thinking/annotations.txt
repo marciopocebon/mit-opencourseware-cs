@@ -1,0 +1,31 @@
+statistical thinking
+
+- how many samples do we need to believe the answer / the result of a random test?
+  - notion of variance
+    "measure of how much spread there is in possible outcomes"
+  - standard deviation
+    "measures the fraction of values that are close to the mean"
+  - coefficient of variation
+    "standard deviation / the mean"
+    - cannot be used for cofidence intervals
+- normal distribution (a.k.a. bell curve, gaus distribution)
+  - always peaks at the mean
+  - falls of symmetrically
+  - has nice mathematical properties
+    - characterised by the mean and standar deviation
+      "which can be used to compute confidence intervals"
+  - confidence interval
+    - give us a range likely to contain unkown value
+    - give us a confidence level that value lies within range
+  - empirical rule
+    "help us estimate the confidence interval given the mean and the standard deviation"
+  - many naturally occuring examples
+- standard error
+  "estimates the standard deviation"
+- check yourself
+  - What does the standard deviation tell us?
+    "It is a distance which describes the range +/- from the mean containing a particular fraction of the values; it describes the shape of the bell curve."
+  - What is variance?
+    "A measure of how much spread there is in the possible different outcomes."
+  - What is the coefficient of variation?
+    "The standard deviation divided by the mean. If it's less than 1, the distribution is considered low-variance."
