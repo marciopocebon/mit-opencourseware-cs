@@ -1,0 +1,10 @@
+monte carlo simulation
+
+"A simulation which arrives at an approximation of a probability by running many, many trials."
+
+- inferential statistics
+  "A random sample tends to exhibit the same properties as the population from which it is drawn."
+- most used on:
+  - optimization
+  - rumerical integration
+  - generation of draws from a probability distribution
