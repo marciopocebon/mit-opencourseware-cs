@@ -1,0 +1,34 @@
+optimization problems and algorithms
+
+- no model is correct, however they are close enough / very useful
+- 1 - start with an experiment
+  "it can give us some data about the behaviour of the physical system"
+- 2 - use computation to find and evaluate a model
+  "to convince ourself it is a good model of the actual physical system"
+- 3 - use some theory, analysis and computation to derive a consequence (a true factor about the true system we started with) of the model
+- optimization problems
+  - an objective function
+    "to maximize or minimize"
+  - a set of constraints
+  - "there is often no computational way to solve them, we actually get an approximation to the solution"
+  - *problem reduction
+    "Taking a problem with an unknown solution and reducing it to a problem or problems with known solutions."
+  - backpack problem (0/1 knapseek problem)
+    - greedy algorithm
+      "at each each step we choose locally optimal solution"
+      - how to formulate a solution?
+        - Item = <value, weight >
+        - W as max weight
+        - j vector of available items
+        - v vector v[i] = 1 => j[i] has been taken
+      - objective function
+        - maximize: ∑ v[i] * j[i].value
+        - subject to: (∑ v[i] * j[i].weight) <= W
+        - implementation in a brute force way
+          - enumerate all possibilities
+          - choose the best that meets the constraint
+- check yourself
+  - What does an optimization problem consist of?
+    "An optimization problem requires that an objective function be optimized, either by maximizing or minimizing the function. There may also be a set of constraints that must be accounted for."
+  - What is problem reduction?
+    "Taking a problem with an unknown solution and reducing it to a problem or problems with known solutions."
