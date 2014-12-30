@@ -1,0 +1,20 @@
+using randomness to solve non-random problems
+
+- uniform distributions
+  "each result is equally probable"
+- exponential distributions
+  - memory-less
+    "independent of previous outcome"
+- analytical modeling
+  "hard to adapt based on constraints"
+- simulation modeling
+  "easy to adapt based on constraints"
+- check yourself
+  - What is a Gaussian distribution?
+    "Also known as a normal distribution, a Gaussian distribution is symmetric and can be fully characterized by its mean and standard deviation."
+  - What is a uniform distribution?
+    "One where each outcome has the same probability. The distribution can be fully characterized with a single parameter, the range."
+  - What is important about an exponential distribution?
+    "This is the only continuous memory-less distribution, meaning that the probability of any outcome at a point in time is independent of the outcome at any previous time.
+
+    "
