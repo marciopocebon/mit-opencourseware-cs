@@ -1,0 +1,22 @@
+curve fitting
+
+- physical reality
+- theoretical model
+- computational models
+- objective function
+  "help choosing the best fit for drawing a line between points"
+- least squares fit
+  "metodo dos minimos quadrados =D"
+- polyfit
+  "takes 3 arguments, observed x and y values and the degree of the polynomium"
+  - returns some values to draw the line
+  - minimizes the minimum square error
+- coefficient of determination
+  "the ratio of the estimated error and the variance in the measured data"
+- check yourself
+  - what is an objective function?
+    "One that provides a quantitative assessment of how well the curve fits the data."
+  - what does curve fitting do?
+    "Relates an independent variable to an estimated value of a dependent variable."
+  - What is the coefficient of determination?
+    "Coefficient of determination, R^2, is equal to 1 – (estimated error)/(variance of the actual data)"
