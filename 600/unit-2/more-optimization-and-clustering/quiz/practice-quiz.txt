@@ -1,0 +1,149 @@
+1) Are each of the following True or False?
+[ T ] 1.1. In Python, a subclass can override methods of its superclass.
+[ F ] 1.2. Standard deviation and coefficient of variation are different names for the same
+    thing.
+[ T ] 1.3. Unit testing is useful for debugging.
+[ F ] 1.4. In Python, functions cannot be used as actual parameters.
+[ F ] 1.5. Increasing the size of a hash table typically increases the amount of time needed to locate a value in the table.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+2) What does the following code print?
+```python
+    x = '11010'
+    y = 0
+    for i in range(len(x)):
+        y += int(x[i])*(2**i)
+    print y
+```
+table test
+i = 0, x = 1 ; 0 += 1*2**0  ; 0 += 1*1  ; 0 += 1    , then y = 1
+i = 1, x = 1 ; 1 += 1*2**1  ; 1 += 1*2  ; 1 += 2    , then y = 3
+i = 2, x = 0 ; 3 += 0*2**2  ; 3 += 0*4  ; 3 += 0    , then y = 3
+i = 3, x = 1 ; 3 += 1*2**3  ; 3 += 1*8  ; 3 += 8    , then y = 11
+i = 4, x = 0 ; 11 += 0*2**0 ; 11 += 0*1 ; 11 += 0   , then y = 11
+
+answer: it will print "11"
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+3) Consider the code:
+```python
+    import random
+    g1 = 0
+    g2 = 0
+    mean = 100.0
+    stdDev1 = 0.0
+    stdDev2 = 20.0
+    for i in range(1000):
+        g1 += random.gauss(mean, stdDev1)
+        g2 += random.gauss(mean, stdDev2)
+```
+
+3.1) What is the expected value of g1? (4 points)
+answer: todo
+3.2) What is the expected value of g2? (4 points)
+answer: todo
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+4) Consider the code:
+```python
+    num6 = 0
+    for test in range(10):
+        d = random.choice(range(10))
+        if d == 6:
+            num6 += 1
+```
+What is the probability of the final value of num6 being 0? (10 points)
+answer: todo
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+5) The code below produces three plots. Match each of the plots on the next page with the
+appropriate figure (Figure 1, Figure 2, or Figure 3). (15 points)
+
+```python
+    y1 = []
+    y2 = []
+    y3 = []
+    for i in range(20):
+     y1.append(3*i**5)
+     y2.append(i**3)
+     y3.append(3**i)
+    pylab.figure(1)
+    pylab.plot(y1)
+    pylab.figure(2)
+    pylab.plot(y2)
+    pylab.semilogy()
+    pylab.figure(3)
+    pylab.plot(y3)
+    pylab.semilogy()
+    pylab.show()
+```
+
+answers:
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+6) What does the following code print?
+```python
+class Shape(object):
+ def __eq__(s1, s2):
+ return s1.area() == s2.area()
+ def __ge__(s1, s2):
+ return s1.area() >= s2.area()
+class Square(Shape):
+ def __init__(self, h):
+ self.side = float(h)
+ def area(self):
+ return self.side**2
+ def __str__(self):
+ return 'Square with side ' + str(self.side)
+class Circle(Shape):
+ def __init__(self, radius):
+ self.radius = radius
+ def area(self):
+ return 3.14159*(self.radius**2)
+ def __str__(self):
+ return 'Circle with radius ' + str(self.radius)
+def f(L):
+ if len(L) == 0: return None
+ x = L[0]
+ for s in L:
+ if s >= x:
+ x = s
+ return x
+s = Square(4)
+print s.area()
+L = []
+shapes = {0:Circle, 1: Square}
+for i in range(10):
+ L.append(shapes[i%2](i))
+print L[4]
+print f(L)
+```
+
+answer: todo
+----------------------------------------------------------------------------------------------------------------------------------
+
+7) Consider the two functions specified below that are used to play a “guess a number game.”
+```python
+
+    def cmpGuess(guess, maxVal):
+     """Assumes that guess is an integer in range(maxVal). returns
+    -1 if guess is < than the magic number, 0 if it is equal to the
+    magic number and 1 if it is greater than the magic number. The
+    magic number is in range(maxVal)."""
+
+    def findNumber(maxVal):
+     """Assumes that maxVal is a positive integer. Returns a
+    number, num, such that cmpGuess(num, maxVal) == 0."""
+```
+
+Write a Python implementation of findNumber that guesses the magic number defined by
+cmpGuess. Your program should run in O(log maxVal) time
+
+answer: todo

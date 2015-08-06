@@ -1,0 +1,74 @@
+machine learning
+
+- how to build programs that learn
+- inductive inference/reasoning
+- unsupervised learning
+  "regularities of data"
+  - we have training data, but we dont have labels
+  - clustering
+    "the process of organizing the objects into groups whose members are similar in some way"
+    - examples
+      - in marketing, find groups of customers with similar behaviour
+      - amazon: books recommendations
+      - netflix: movies recommendations
+    - what properties does a good clustering has?
+      - low intra-cluster dissimilarity
+        "all of the objects from the cluster should be similar by some metrics"
+      - high inter-cluster dissimilarity
+        "objects from the same cluster are similar, but two different objects from two different clusters are quite different from each other"
+    - how to model dissimilarity? with variance!
+      "variance (c) = ∑ [x in c] (mean(c) - x)**2"
+    - badness
+      "the combination of computing the dissimilarity of a intra and a inter cluster"
+    - constraints
+      - maximum number of clusters
+      - maximum distance between clusters
+      - etc.
+    - greedy algorithms
+      - k - means
+      - hierarchical
+        - agglomerative clustering (see slides) O(√N)
+          "combining objects in clusters"
+          - 1. assign each item to its own cluster
+          - 2. find the most similar pair of clusters and merge them
+            "we have to define it.. different metrics can be used to get different properties"
+          - 3. continue to process
+        - metrics
+          - linkage criterion
+            - single-linkage (see slides)
+              "the shortest distance between any pair of objects/points and we say: that's the distance between the two clusters"
+            - complete-linkage
+              "the furthest distance between any pair of objects/points, the opposite from single-linkage"
+            - average-linkage
+              "take all of the distances, add them up and take the average"
+          - feature selection
+    - feature vector
+      - incorporates multiple features
+- supervised learning
+  "associate a label with each example in a training set"
+  - discrete
+    "classification problem"
+    - divide a training data by its color
+      "red x blue (see lecture slides)"
+  - real
+    "regression problem"
+  - questions to make when analysing a problem:
+    - are the labels accurate?
+      "ps: there is no guarantee that the labels are accurate"
+    - is past representative of future?
+    - do you have enough [training] data to generalize?
+    - future extraction
+    - how tight should the fit be?
+- Check Yourself
+  - What is machine learning?
+    "A scientific discipline that is concerned with the design and development of algorithms that allow computers to evolve behaviors based on empirical data."
+  - What is inductive inference?
+    "The observation of examples that represent incomplete information about some statistical phenomenon in order to recognize complex patterns and make intelligent decisions."
+  - What is supervised learning?
+    "Learning in which a label is associated with each example in a training set."
+  - What is unsupervised learning used for?
+    "Uncovering hidden regularities or detecting anomalies in data."
+  - What is clustering?
+    "The process of organizing objects into groups whose members are similar in some way"
+  - What is agglomerative clustering?
+    "Clustering that merges clusters iteratively"

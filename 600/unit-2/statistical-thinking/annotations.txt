@@ -7,7 +7,7 @@ statistical thinking
     "measures the fraction of values that are close to the mean"
   - coefficient of variation
     "standard deviation / the mean"
-    - cannot be used for cofidence intervals
+    - cannot be used for confidence intervals
 - normal distribution (a.k.a. bell curve, gaus distribution)
   - always peaks at the mean
   - falls of symmetrically
