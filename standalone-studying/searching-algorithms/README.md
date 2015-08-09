@@ -1,5 +1,5 @@
-# run the benchmarcks:
+# running the benchmarcks:
 ```
 $ python benchmarking.py
 ```
-It will run all search algorithms and output the testing result to the file "search-benchmarking.txt"
+It will run all search algorithms and output the testing result into the file "search-benchmarking.txt"
