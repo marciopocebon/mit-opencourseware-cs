@@ -1,0 +1,4 @@
+method 						 | total 			 | mean 			 | best_case 		 | worst_case 		 | input size 
+insertion_sort_array_v2 	 | 0.006017 		 | 0.000602 		 | 0.000592 		 | 0.000645 		 | 100 
+insertion_sort_array_v3 	 | 0.004071 		 | 0.000407 		 | 0.000392 		 | 0.000444 		 | 100 
+insertion_sort_array_v1 	 | 0.004223 		 | 0.000422 		 | 0.000392 		 | 0.000471 		 | 100 
