@@ -1,4 +1,4 @@
-# running the benchmarcks:
+# running the benchmark:
 ```
 $ python benchmarking.py
 ```

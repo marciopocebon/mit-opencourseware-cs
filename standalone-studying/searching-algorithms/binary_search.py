@@ -1,5 +1,4 @@
-
-def binary_search_tn(ordered_list, x):
+def binary_search_tn(ordered_list, x, Ub=0):
     """
         iterative implementation of a binary search algorithm
 
@@ -9,7 +8,12 @@ def binary_search_tn(ordered_list, x):
     """
 
     Lb = 0
-    Ub = len(ordered_list)-1
+
+
+    if Ub == 0:
+        Ub = len(ordered_list)-1
+    else:
+        print Ub
 
     while True:
         M = (Lb+Ub)/2
@@ -84,25 +88,3 @@ def binary_search_v2(ordered_list, x):
             return True
 
     return inner_runner(start_index, end_index)
-
-# def binary_search_tn(ordered_list, x):
-#     """
-#         iterative implementation of a binary search algorithm
-
-#         - uses deferred detection of equality
-#     """
-
-#     Lb = 0
-#     Ub = len(ordered_list)-1
-
-#     while True:
-#         M = (Lb+Ub)/2
-#         if x < ordered_list[M]:
-#             Ub = M - 1
-#         elif x > ordered_list[M]:
-#             Lb = M + 1
-#         else:
-#             return True
-
-#         if Lb > Ub:
-#             return False
