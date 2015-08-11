@@ -1,6 +1,6 @@
 import random
 
-def insertion_sort_array_v1(unordered_list):
+def insertion_sort_v1(unordered_list):
     """
         my implementation of an insertion sort algorithm using an array
 
@@ -46,7 +46,7 @@ def insertion_sort_array_v1(unordered_list):
 
     return ordered_list
 
-def insertion_sort_array_v2(unordered_list):
+def insertion_sort_v2(unordered_list):
     """
         implementation of an insertion sort algorithm using an array
 
@@ -66,7 +66,7 @@ def insertion_sort_array_v2(unordered_list):
         # print unordered_list
     return unordered_list
 
-def insertion_sort_array_v3(unordered_list):
+def insertion_sort_v3(unordered_list):
     """
         implementation of an insertion sort algorithm using an array
 

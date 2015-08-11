@@ -1,10 +1,12 @@
 import time
 import random
 
-from insertion_sort import insertion_sort_array_v1, insertion_sort_array_v2, insertion_sort_array_v3
+from insertion_sort import insertion_sort_v1, insertion_sort_v2, insertion_sort_v3
+from bubble_sort import bubble_sort_v1___, bubble_sort_v2___, bubble_sort_v3___
 
-num_trials = 10
-input_size = 10**2
+num_trials = 5
+input_size = 10**3
+randomness = 10**5
 
 def benckmark_search(array_list, method, num_runs):
     total = 0.0
@@ -28,18 +30,23 @@ def benckmark_search(array_list, method, num_runs):
         if time_taken > worst_case:
             worst_case = time_taken
 
-    content = "%s \t | %.6f \t\t | %.6f \t\t | %.6f \t\t | %.6f \t\t | %s \n" % (method.__name__, total, total/num_runs, best_case, worst_case, array_list_len)
+    content = "%s \t | %.6f \t\t | %.6f \t\t | %.6f \t\t | %s \n" % (method.__name__, total, best_case, worst_case, array_list_len)
     f.write(content)
 
 f = open('sort-benchmarking.txt', 'w')
-header = "method \t\t\t\t\t\t | total \t\t\t | mean \t\t\t | best_case \t\t | worst_case \t\t | input size \n"
+header = "method \t\t\t\t | total \t\t\t | best_case \t\t | worst_case \t\t | input size \n"
 f.write(header)
 
-unordered_list = [random.randint(0, 10**6) for x in xrange(input_size)]
+unordered_list = [random.randint(0, randomness) for x in xrange(input_size)]
 
 # insertion sort
-benckmark_search(unordered_list, insertion_sort_array_v1, num_trials)
-benckmark_search(unordered_list, insertion_sort_array_v2, num_trials)
-benckmark_search(unordered_list, insertion_sort_array_v3, num_trials)
+benckmark_search(unordered_list, insertion_sort_v1, num_trials)
+benckmark_search(unordered_list, insertion_sort_v2, num_trials)
+benckmark_search(unordered_list, insertion_sort_v3, num_trials)
+
+# bubble sort
+benckmark_search(unordered_list, bubble_sort_v1___, num_trials)
+benckmark_search(unordered_list, bubble_sort_v2___, num_trials)
+benckmark_search(unordered_list, bubble_sort_v3___, num_trials)
 
 f.close()

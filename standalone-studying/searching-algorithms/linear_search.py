@@ -1,5 +1,3 @@
-import dis
-
 def linear_search_v1(ordered_list, x):
     for y in ordered_list:
         if y == x:
