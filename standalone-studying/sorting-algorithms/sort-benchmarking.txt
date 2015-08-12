@@ -1,1 +1,9 @@
 method 				 | total 			 | best_case 		 | worst_case 		 | input size 
+insertion_sort_v1 	 | 0.049744 		 | 0.049744 		 | 0.049744 		 | 1000 
+insertion_sort_v2 	 | 0.080404 		 | 0.080404 		 | 0.080404 		 | 1000 
+insertion_sort_v3 	 | 0.057483 		 | 0.057483 		 | 0.057483 		 | 1000 
+bubble_sort_v1___ 	 | 0.156976 		 | 0.156976 		 | 0.156976 		 | 1000 
+bubble_sort_v2___ 	 | 0.109155 		 | 0.109155 		 | 0.109155 		 | 1000 
+bubble_sort_v3___ 	 | 0.039298 		 | 0.039298 		 | 0.039298 		 | 1000 
+selection_sort_v1 	 | 0.026626 		 | 0.026626 		 | 0.026626 		 | 1000 
+selection_sort_v2 	 | 0.055694 		 | 0.055694 		 | 0.055694 		 | 1000 

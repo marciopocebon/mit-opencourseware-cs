@@ -12,8 +12,6 @@ def binary_search_tn(ordered_list, x, Ub=0):
 
     if Ub == 0:
         Ub = len(ordered_list)-1
-    else:
-        print Ub
 
     while True:
         M = (Lb+Ub)/2

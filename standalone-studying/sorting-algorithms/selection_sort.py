@@ -1,4 +1,4 @@
-import random
+import sys
 
 def selection_sort_v1(unodered_list):
     """
@@ -24,9 +24,11 @@ def selection_sort_v1(unodered_list):
         ordered_list.append(smallest_item)
         len_list = len_list - 1
 
-    # print "*** selection_sort_v1***"
-    # print "running time ~=", cost
-    # print "N:", len(ordered_list)
+    print "***************"
+    print sys._getframe().f_code.co_name
+    print "N:", len_list_original
+    print "running time:", cost
+    print
 
     return ordered_list
 
@@ -39,7 +41,9 @@ def selection_sort_v2(alist):
     """
 
     cost = 0
-    for fillslot in range(len(alist)-1,0,-1):
+    len_list = len(alist)
+
+    for fillslot in range(len_list-1,0,-1):
         cost = cost + 1
         positionOfMax=0
         for location in range(1,fillslot+1):
@@ -52,9 +56,11 @@ def selection_sort_v2(alist):
         alist[fillslot] = alist[positionOfMax]
         alist[positionOfMax] = temp
 
-    # print "*** selection_sort_v2***"
-    # print "running time ~=", cost
-    # print "N:", len(alist)
+    print "***************"
+    print sys._getframe().f_code.co_name
+    print "N:", len_list
+    print "running time:", cost
+    print
 
     return alist
 
@@ -63,18 +69,12 @@ def find_smallest_index(any_list, len_list):
         finds the smallest element in the list and returns its index
     """
 
-    cost = 0
-
     smallest_i = float("inf")
     smallest_n = smallest_i
 
     for i in xrange(len_list):
-        cost = cost + 1
         if any_list[i] < smallest_n:
             smallest_i = i
             smallest_n = any_list[i]
-
-    # print "***find_smallest_index***:"
-    # print "cost:", cost
 
     return smallest_i

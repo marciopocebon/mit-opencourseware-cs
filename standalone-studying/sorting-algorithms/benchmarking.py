@@ -1,13 +1,13 @@
 import time
 import random
 
-from insertion_sort import insertion_sort_v1, insertion_sort_v2, insertion_sort_v3, insertion_sort_v4
+from insertion_sort import insertion_sort_v1, insertion_sort_v2, insertion_sort_v3
 from bubble_sort import bubble_sort_v1___, bubble_sort_v2___, bubble_sort_v3___
 from selection_sort import selection_sort_v1, selection_sort_v2
 
 num_trials = 1
-input_size = 10**1
-randomness = 10**2
+input_size = 10**3
+randomness = 10**10
 
 def benckmark_search(array_list, method, num_runs):
     total = 0.0
@@ -20,8 +20,7 @@ def benckmark_search(array_list, method, num_runs):
         cloned_list = array_list[:]
 
         start_time = time.time()
-        print cloned_list
-        print method(cloned_list)
+        method(cloned_list)
         time_taken = time.time() - start_time
 
         total += time_taken
@@ -42,18 +41,17 @@ f.write(header)
 unordered_list = [random.randint(0, randomness) for x in xrange(input_size)]
 
 # insertion sort
-# benckmark_search(unordered_list, insertion_sort_v1, num_trials)
-# benckmark_search(unordered_list, insertion_sort_v2, num_trials)
-# benckmark_search(unordered_list, insertion_sort_v3, num_trials)
-benckmark_search(unordered_list, insertion_sort_v4, num_trials)
+benckmark_search(unordered_list, insertion_sort_v1, num_trials)
+benckmark_search(unordered_list, insertion_sort_v2, num_trials)
+benckmark_search(unordered_list, insertion_sort_v3, num_trials)
 
 # bubble sort
-# benckmark_search(unordered_list, bubble_sort_v1___, num_trials)
-# benckmark_search(unordered_list, bubble_sort_v2___, num_trials)
-# benckmark_search(unordered_list, bubble_sort_v3___, num_trials)
+benckmark_search(unordered_list, bubble_sort_v1___, num_trials)
+benckmark_search(unordered_list, bubble_sort_v2___, num_trials)
+benckmark_search(unordered_list, bubble_sort_v3___, num_trials)
 
 # selection sort
-# benckmark_search(unordered_list, selection_sort_v1, num_trials)
-# benckmark_search(unordered_list, selection_sort_v2, num_trials)
+benckmark_search(unordered_list, selection_sort_v1, num_trials)
+benckmark_search(unordered_list, selection_sort_v2, num_trials)
 
 f.close()
