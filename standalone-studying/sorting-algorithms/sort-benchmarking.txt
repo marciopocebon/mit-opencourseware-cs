@@ -1,7 +1,1 @@
-method 				 | total 			 | best_case 		 | worst_case 		 | input size
-insertion_sort_v1 	 | 0.205274 		 | 0.040778 		 | 0.041777 		 | 1000
-insertion_sort_v2 	 | 0.348953 		 | 0.068788 		 | 0.072459 		 | 1000
-insertion_sort_v3 	 | 0.245310 		 | 0.046383 		 | 0.058715 		 | 1000
-bubble_sort_v1___ 	 | 0.630795 		 | 0.123733 		 | 0.133078 		 | 1000
-bubble_sort_v2___ 	 | 0.416183 		 | 0.082862 		 | 0.083448 		 | 1000
-bubble_sort_v3___ 	 | 0.156664 		 | 0.030869 		 | 0.032133 		 | 1000
+method 				 | total 			 | best_case 		 | worst_case 		 | input size 
